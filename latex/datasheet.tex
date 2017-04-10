@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[letterpaper, portrait, margin=0.75in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{multicol}
+  
+\usepackage{charter}
+\pagestyle{fancy}
+\lhead{PSEC4A datasheet}
+%\chead{\thepage}
+\rhead{v.0.1 ---  2017.4.10}
+
+
+%\usepackage{lmodern}
+
+\begin{document}
+\noindent {\huge{\textbf {PSEC4A}}} \\
+\noindent Chip Designer and Document Author: Eric Oberla (KICP UChicago) \\
+\noindent Email: ejo@uchicago.edu
+
+%\tableofcontents
+%\newpage
+
+\section*{Overview}
+\begin{multicols}{2}
+
+  This document provides an overview of the PSEC4A ASIC designed in late 2016 and early 2017 and submitted for fabrication on a MOSIS 0.13~$\mu$m CMOS MPW in February, 2017. The PSEC4A ASIC is intended for the `analog down-conversion' of of wide-bandwidth ($\sim$2~GHz) analog signals, achieved through fast sampling (1-11 gigasamples-per-second [GSPS]) followed by a relatively slow digitization and readout process ($\mathcal{O}$100~MHz). Thus, PSEC4A requires a trigger signal to capture the signal-of-interest, either from an external source or generated using the PSEC4A internal discriminators.
+
+  The PSEC4A has 8 signal input channels. Each channel has 1056 samples, which are randomly addressable in blocks of 132 samples. The sampling rate is set by an external clock input, which is locked on-chip using a delay-locked loop (DLL). When successfully locked, one input clock period spans the primary sampling array and the sampling rate is equal to 132*$f$, where $f$ is the input clock frequency.
+  
+\end{multicols}
+
+\section*{Features}
+\begin{itemize}
+{\bf
+  \item `Fast' and `Slow' DLL modes to allow a wide range of stable sampling rates, from $\sim$1~GSPS to 11~GSPS.
+  \item Improved input coupling to extend analog bandwidth
+  \item Simultaneous sampling / digitization / readout functionality to reduce dead-time induced latency
+  \item Multi-buffering via addressable switched-capacitor banks.
+  \item On-chip DACs
+  \item Each channel with a threshold-level discriminator and trigger output pin
+  \item 11-bit ramp-compare ADC using on-chip 1.5~GHz clock generator
+  \item Powered through a single 1.2V supply
+}
+
+    
+\end{itemize}
+
+\section*{Absolute Maximum ratings}
+\centering
+\begin{tabular}[b!]{l|p{1.4cm}|p{1.7cm}|p{9cm}}
+  \hline
+   spec       & max & nominal & comment \\ \hline
+   Supply Voltage (Vdd) &  1.5 V  & 1.2 V  &   may be possible to increase AVdd only to increase dynamic range\\ \hline
+   IO voltage &  Vdd & 1.2 V & Over/under voltage protection diodes on most pins. ({\bf Not} on signal inputs) \\ \hline
+   Signal range voltage & 0-AVdd & 0.1-1.1~V & about a 1~V usable range
+
+\end{tabular}
+
+\newpage
+\begin{figure}[T!]
+    \begin{center}
+      \includegraphics[width=18.2cm]{fig/PSEC4a_pinout_LQFP128.png}
+      %\includegraphics[width=15cm]{singlePLL.PNG}
+
+    \end{center}
+    \caption{PSEC4A pinout in LQFP128 package}
+    \label{fig:pinout}
+\end{figure}
+
+\begin{figure}[h!]
+    \begin{center}
+      \includegraphics[width=17.5cm]{fig/psec4a_layout_capture}
+      %\includegraphics[width=15cm]{singlePLL.PNG}
+
+    \end{center}
+    \caption{PSEC4a black-and-white layout capture. The die has 107 pads. The layout has an area of 3800 $\times$ 3920~$\mu$$m^2$.}
+    \label{fig:layout}
+\end{figure}
+
+
+
+%\clearpage
+%
+%\appendix
+%
+%\includepdf[pages={1},  offset=0cm -6cm, pagecommand={\section{IPython Notebook: Startup}\label{Appendix0}}]{fig/bootSurf_notebook.pdf}
+%\includepdf[pages=2-, offset=0cm -1cm, pagecommand={}]{fig/bootSurf_notebook.pdf}
+%
+%\includepdf[pages={1}, offset=0cm -2cm, pagecommand={\section{IPython Notebook: Basic Operations}\label{Appendix1}}]{fig/surf_ipython.pdf}
+%\includepdf[pages=2-, offset=0cm -2cm, pagecommand={}]{fig/surf_ipython.pdf}
+%
+%\includepdf[pages={1}, offset=0cm -1cm, pagecommand={\section{IPython Notebook: Tuning DLL feedback trim}\label{Appendix2}}]{fig/vtrimfb_notebook.pdf}
+%\includepdf[pages={2-}, offset=0cm -1cm, pagecommand={}]{fig/vtrimfb_notebook.pdf}
+%
+\end{document}
