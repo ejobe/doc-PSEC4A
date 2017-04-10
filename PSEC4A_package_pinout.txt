@@ -88,7 +88,7 @@
 88,BiasComp,BiasComp
 89,BiasXfer,BiasXfer
 90,Cext,Cext
-91,BiasRampSlpoe,BiasRampSlpoe
+91,BiasRampSlope,BiasRampSlope
 92,RampBuffOut,RampBuffOut
 93,BiasRampBuf,BiasRampBuf
 94,DVDD6,DVDD
